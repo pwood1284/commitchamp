@@ -16,6 +16,8 @@ module Commitchamp
       self.class.get("/users/#{username}", headers: @headers)
     end
 
+    
+
     # def get_contributions(owner, repo, page=1)
     #   params = {
     #     page: page

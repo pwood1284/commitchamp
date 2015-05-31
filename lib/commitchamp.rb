@@ -5,11 +5,15 @@ require 'pry'
 require 'commitchamp/version'
 require 'commitchamp/init_db'
 require 'commitchamp/github'
+require 'commitchamp/user'
+require 'commitchamp/contribution'
+require 'commitchamp/repo'
 
 module Commitchamp
   class App
     def initialize
       @github = Github.new
+      @username = nil
     end
 
     def prompt(question, validator)
@@ -23,12 +27,26 @@ module Commitchamp
       puts input
     end
 
-    def run
-        fetch_repo
-        user_data = @github.get_user(@username)
-        User.create(user_data)
+    def create_new_user
+      puts "Create a new user: "
+        name = gets.chomp
+        @username = Commitchamp::User.create(:login => name)
+      puts  "Thanks #{@username.name}!"
+    end
+
+
+    def existing_repos
 
     end
+
+
+    def run
+      fetch_repo
+      # user_info = @github.get_user(@username)
+      # User.create(user_info)
+    end
+
+    def
 
     def fetch_repo
       puts "Would you like to choose an existing repo (1) or fetch a new repo(2)"
@@ -41,7 +59,7 @@ module Commitchamp
             prompt("What username would you like to download?", /^\w+$/)
             @username = gets.chomp
           else
-            puts "new repo"
+            create_new_user
           end
      end
   end
@@ -60,7 +78,6 @@ end
   end
 
   class Repo < ActiveRecord::Base
-    # has_many :contributions, through: :contributions
     has_many :contributions
     has_many :users, through: :contributions
   end
