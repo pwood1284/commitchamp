@@ -34,19 +34,12 @@ module Commitchamp
       puts  "Thanks #{@username.name}!"
     end
 
-
-    def existing_repos
-
-    end
-
-
     def run
+      user_list
       fetch_repo
       # user_info = @github.get_user(@username)
       # User.create(user_info)
     end
-
-    def
 
     def fetch_repo
       puts "Would you like to choose an existing repo (1) or fetch a new repo(2)"

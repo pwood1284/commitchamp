@@ -13,10 +13,14 @@ module Commitchamp
     end
 
     def get_user(username)
-      self.class.get("/users/#{username}", headers: @headers)
+      self.class.get("/users/#{@username}", headers: @headers)
     end
 
-    
+    def get_contributions(owner, repo)
+        self.class.get("/repos/#{owner}/#{repo}/stats/contributors", headers: @headers)
+    end
+
+  
 
     # def get_contributions(owner, repo, page=1)
     #   params = {
