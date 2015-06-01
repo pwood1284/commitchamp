@@ -51,6 +51,7 @@ module Commitchamp
           if answer == 1
             prompt("What username would you like to download?", /^\w+$/)
             @username = gets.chomp
+            
           else
             create_new_user
           end
