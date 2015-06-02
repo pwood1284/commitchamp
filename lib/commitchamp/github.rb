@@ -1,7 +1,7 @@
 require 'httparty'
 
 module Commitchamp
-  ACCESS_TOKEN = ENV['ACCESS_TOKEN']
+  ACCESS_TOKEN = ENV['OAUTH_TOKEN']
 
   class Github
     include HTTParty
@@ -13,7 +13,7 @@ module Commitchamp
     end
 
     def get_user(username)
-      self.class.get("/users/#{@username}", headers: @headers)
+      self.class.get("/users/#{username}", headers: @headers)
     end
 
     def get_contributions(owner, repo, page=1)
@@ -26,5 +26,7 @@ module Commitchamp
         }
       self.class.get("/repos/#{owner}/#{repo}/stats/contributors", headers: @headers)
     end
+
+
   end
 end

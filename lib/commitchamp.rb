@@ -5,9 +5,10 @@ require 'pry'
 require 'commitchamp/version'
 require 'commitchamp/init_db'
 require 'commitchamp/github'
-require 'commitchamp/user'
-require 'commitchamp/contribution'
-require 'commitchamp/repo'
+# require 'commitchamp/user'
+# require 'commitchamp/contribution'
+# require 'commitchamp/repo'
+
 
 module Commitchamp
   class App
@@ -51,14 +52,33 @@ module Commitchamp
           if answer == 1
             prompt("What username would you like to download?", /^\w+$/)
             @username = gets.chomp
-            
+
           else
             create_new_user
           end
      end
   end
 end
-
+# def import_contributors(repo)
+#       repos = Repo.first_or_create(name: repo)
+#       results = @github.get_contributions('redline6561', repo)
+#       results.each do |contributor|
+#         user = User.first_or_create(name: contribution['author']['login'])
+#         lines_added = contributor['weeks'].map { |x| x['a'] }.sum
+#         lines_deleted = contributor['weeks'].map{ |x| x['d'] }.sum
+#         commits_made = contributor['weeks'].map { |x| x['c'] }.sum
+#         # Contribution.create(user_id: user.id,
+#         #                      lines_added: lines_added,
+#         #                      lines_deleted: lines_deleted,
+#         #                      commits_made: commits_made,
+#         #                      repo_id: repo.id)
+#
+#
+#         user.contributions.create(lines_added: lines_added,
+#                                   lines_deleted: lines_deleted,
+#                                   commits_made: commits_made,
+#                                   repo_id: repo.id)
+#       end
 
 # Models for the database
   class User < ActiveRecord::Base
